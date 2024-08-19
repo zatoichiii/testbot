@@ -21,7 +21,7 @@ const Form = () => {
     } else {
       tg.MainButton.show();
     }
-  }, [points, message, name, tg]);
+  }, [points, message, name, tg.MainButton]);
 
 
   const handleNameChange = (e) => {
