@@ -15,13 +15,13 @@ const Form = () => {
   }, []);
 
 
-  useEffect( () => {
-    if(!points || !message || !name) {
-        tg.MainButton.hide();
+  useEffect(() => {
+    if (!points || !message || !name) {
+      tg.MainButton.hide();
     } else {
-        tg.MainButton.show();
+      tg.MainButton.show();
     }
-  }, [points, message, name])
+  }, [points, message, name, tg]);
 
 
   const handleNameChange = (e) => {

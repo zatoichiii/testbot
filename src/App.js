@@ -19,12 +19,17 @@ function App() {
     }
   }, [tg]);
 
+  if (tg) {
+    tg.MainButton.hide();
+    onToggleButton();
+  }
+
   return (
     <div className="App">
       <Header />
       <Routes>
-      <Route index element={<Main />}/>
-      <Route path={'/form'} element={<Form />}/>
+        <Route index element={<Main />}/>
+        <Route path={'/form'} element={<Form />}/>
       </Routes>
     </div>
   );
