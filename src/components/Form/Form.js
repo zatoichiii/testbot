@@ -12,16 +12,15 @@ const Form = () => {
 
   useEffect(() => {
     tg.MainButton.setParams({ text: 'Отправить спасибо' });
-  }, []);
-
-
+  }, [tg.MainButton]);
+  
   useEffect(() => {
     if (!points || !message || !name) {
       tg.MainButton.hide();
     } else {
       tg.MainButton.show();
     }
-  }, [points, message, name]);
+  }, [points, message, name, tg.MainButton]);
 
 
   const handleNameChange = (e) => {
