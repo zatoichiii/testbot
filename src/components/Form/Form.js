@@ -1,95 +1,78 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, {useCallback, useEffect, useState} from 'react';
 import './Form.css';
-import { useTelegram } from "../../hooks/useTelegram";
+import {useTelegram} from "../../hooks/useTelegram";
 
 const Form = () => {
-  const [name, setName] = useState('');
-  const [points, setPoints] = useState('');
-  const [message, setMessage] = useState('');
-  const [subject, setSubject] = useState('');
-  const {tg} = useTelegram();
+    const [country, setCountry] = useState('');
+    const [street, setStreet] = useState('');
+    const [subject, setSubject] = useState('physical');
+    const {tg} = useTelegram();
 
-  const onSendData = useCallback( () => {
-    const data = {
-      name,
-      points,
-      message,
-      subject
+    const onSendData = useCallback(() => {
+        const data = {
+            country,
+            street,
+            subject
+        }
+        tg.sendData(JSON.stringify(data));
+    }, [country, street, subject])
+
+    useEffect(() => {
+        tg.onEvent('mainButtonClicked', onSendData)
+        return () => {
+            tg.offEvent('mainButtonClicked', onSendData)
+        }
+    }, [onSendData])
+
+    useEffect(() => {
+        tg.MainButton.setParams({
+            text: 'Отправить данные'
+        })
+    }, [])
+
+    useEffect(() => {
+        if(!street || !country) {
+            tg.MainButton.hide();
+        } else {
+            tg.MainButton.show();
+        }
+    }, [country, street])
+
+    const onChangeCountry = (e) => {
+        setCountry(e.target.value)
     }
-    tg.SendData(JSON.stringify(data))
-  }, [name, points, message, subject, tg]);
 
-  useEffect(() => {
-    tg.WebApp.onEvent('mainButtonClicked', onSendData);
-    return () => {
-      tg.WebApp.sendData('mainButtonClicked', onSendData);
+    const onChangeStreet = (e) => {
+        setStreet(e.target.value)
     }
-  }, [onSendData, name, points, message, subject, tg.WebApp]);
-  
-  useEffect(() => {
-    tg.MainButton.setParams({ text: 'Отправить спасибо' });
-  }, [tg.MainButton]);
-  
-  useEffect(() => {
-    if (!points || !message || !name) {
-      tg.MainButton.hide();
-    } else {
-      tg.MainButton.show();
+
+    const onChangeSubject = (e) => {
+        setSubject(e.target.value)
     }
-  }, [points, message, name, tg.MainButton]);
 
-
-  const handleNameChange = (e) => {
-    setName(e.target.value);
-  };
-
-  const handlePointsChange = (e) => {
-    setPoints(e.target.value);
-  };
-
-  const handleMessageChange = (e) => {
-    setMessage(e.target.value);
-  };
-
-  const handleSubjectChange = (e) => {
-    setSubject(e.target.value);
-  };
-
-  return (
-    <div className="form">
-      <h3>Кому вы хотите дать свои спасибо?</h3>
-      <input
-        className="input"
-        type="text"
-        placeholder="Имя"
-        value={name}
-        onChange={handleNameChange}
-      />
-      <input
-        className="input"
-        type="text"
-        placeholder="Баллы"
-        value={points}
-        onChange={handlePointsChange}
-      />
-      <input
-        className="input"
-        type="text"
-        placeholder="Сообщение"
-        value={message}
-        onChange={handleMessageChange}
-      />
-
-      <select
-        value={subject}
-        className="select"
-        onChange={handleSubjectChange}
-      >
-        <option value="public">Публично</option>
-        <option value="anonim">Анонимно</option>
-      </select>
-    </div>
-  );
+    return (
+        <div className={"form"}>
+            <h3>Кому вы хотите отдать спасибо?</h3>
+            <input
+                className={'input'}
+                type="text"
+                placeholder={'Имя'}
+                value={country}
+                onChange={onChangeCountry}
+            />
+            <input
+                className={'input'}
+                type="text"
+                placeholder={'Баллы'}
+                value={street}
+                onChange={onChangeStreet}
+            />
+            <select value={subject} onChange={onChangeSubject} className={'select'}>
+                <option value={'physical'}>Публично</option>
+                <option value={'legal'}>Анонимно</option>
+            </select>
+        </div>
+    );
 };
 
 export default Form;
