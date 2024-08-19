@@ -7,23 +7,25 @@ const Form = () => {
   const [points, setPoints] = useState('');
   const [message, setMessage] = useState('');
   const [subject, setSubject] = useState('');
-
   const {tg} = useTelegram();
 
-  const onSendData = useCallback(() => {
+  const onSendData = useCallback( () => {
     const data = {
       name,
       points,
       message,
       subject
     }
-    try {
-      tg.onSendData(JSON.stringify(data));
-      console.log('Data sent successfully!');
-    } catch (error) {
-      console.error('Error sending data:', error);
-    }
+    tg.SendData(JSON.stringify(data))
   }, [name, points, message, subject, tg]);
+
+  useEffect(() => {
+    Telegram.WebApp.onEvent('mainButtonClicked', onSendData);
+    return () => {
+    Telegram.WebApp.sendData('mainButtonClicked', onSendData);
+    }
+  }, [onSendData, name, points, message, subject]);
+
 
   useEffect(() => {
     tg.MainButton.setParams({ text: 'Отправить спасибо' });
@@ -87,7 +89,6 @@ const Form = () => {
         <option value="public">Публично</option>
         <option value="anonim">Анонимно</option>
       </select>
-      <button onClick={onSendData}>Отправить спасибо</button>
     </div>
   );
 };
