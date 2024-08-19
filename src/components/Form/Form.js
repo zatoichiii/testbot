@@ -26,14 +26,6 @@ const Form = () => {
   }, [name, points, message, subject, tg]);
 
   useEffect(() => {
-    tg.onEvent('mainButtonClicked', onSendData);
-    return () => {
-      tg.offEvent('mainButtonClicked', onSendData);
-    }
-  }, [onSendData, name, points, message, subject, tg]);
-
-
-  useEffect(() => {
     tg.MainButton.setParams({ text: 'Отправить спасибо' });
   }, [tg.MainButton]);
   
@@ -95,6 +87,7 @@ const Form = () => {
         <option value="public">Публично</option>
         <option value="anonim">Анонимно</option>
       </select>
+      <button onClick={onSendData}>Отправить спасибо</button>
     </div>
   );
 };
