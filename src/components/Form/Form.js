@@ -10,16 +10,15 @@ const Form = () => {
 
   const {tg} = useTelegram();
 
-  const onSendData = useCallback( () => {
+  const onSendData = useCallback(() => {
     const data = {
-        name,
-        points,
-        message,
-        subject
+      name,
+      points,
+      message,
+      subject
     }
     tg.onSendData(JSON.stringify(data));
-
-  },)
+  }, []); 
 
   useEffect(() => {
     tg.onEvent('mainButtonClicked', () => {
