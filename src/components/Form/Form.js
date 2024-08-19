@@ -22,11 +22,10 @@ const Form = () => {
   useEffect(() => {
     tg.WebApp.onEvent('mainButtonClicked', onSendData);
     return () => {
-    tg.WebApp.sendData('mainButtonClicked', onSendData);
+      tg.WebApp.sendData('mainButtonClicked', onSendData);
     }
-  }, [onSendData, name, points, message, subject]);
-
-
+  }, [onSendData, name, points, message, subject, tg.WebApp]);
+  
   useEffect(() => {
     tg.MainButton.setParams({ text: 'Отправить спасибо' });
   }, [tg.MainButton]);
