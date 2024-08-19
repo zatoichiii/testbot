@@ -1,4 +1,9 @@
 [[redirects]]
-form = "/*"
-to = "/index.html"
-status = 200
+  from = "/form"
+  to = "/form"
+  status = 200
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
