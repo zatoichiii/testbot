@@ -12,7 +12,7 @@ function App() {
     if (tg) {
       tg.ready();
     }
-  }, [tg]);
+  }, []);
 
   return (
     <div className="App">
