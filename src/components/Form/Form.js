@@ -18,17 +18,14 @@ const Form = () => {
       subject
     }
     tg.onSendData(JSON.stringify(data));
-  }, []); 
+  }, [name, points, message, subject, tg]);
 
   useEffect(() => {
-    tg.onEvent('mainButtonClicked', () => {
-      onSendData();
-    });
+    tg.onEvent('mainButtonClicked', onSendData);
     return () => {
       tg.offEvent('mainButtonClicked', onSendData);
     }
-  }, [onSendData, tg]);
-
+  }, [onSendData, name, points, message, subject, tg]);
 
 
   useEffect(() => {
