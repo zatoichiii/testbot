@@ -3,18 +3,16 @@ import Button from "../Button/Button";
 import { useTelegram } from "../../hooks/useTelegram";
 
 const Header = (props) => {
+  const { user, onClose } = useTelegram(); // Added parentheses
 
-    const {tg, user, onClose} = useTelegram
-
-
-    return (
-        <div className={'header'}>
-            <Button onClick={onClose}>Закрыть</Button>
-            <span className={'username'}>
-                {user?.username}
-            </span>
-        </div>
-    )
-}
+  return (
+    <div className={'header'}>
+      <Button onClick={onClose}>Закрыть</Button>
+      <span className={'username'}>
+        {user?.username || 'Unknown User'} // Added a default value
+      </span>
+    </div>
+  );
+};
 
 export default Header;

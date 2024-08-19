@@ -1,25 +1,31 @@
-const tg = window.Telegram.WepApp;
-
+const tg = window.Telegram?.WebApp;
 
 export function useTelegram() {
+  if (!tg) {
+    throw new Error("Telegram WebApp is not available");
+  }
 
-    const onClose = () => {
-        tg.close()
+  const onClose = () => {
+    tg.close();
+  };
+
+  const onToggleButton = () => {
+    const mainButton = tg.MainButton;
+    if (mainButton) {
+      if (mainButton.isVisible) {
+        mainButton.hide();
+      } else {
+        mainButton.show();
       }
-
-      const onToggleButton = () => {
-        if(tg.MainButton.isVisible){
-            tg.MainButton.hide();
-        } else {
-            tg.MainButton.show();
-        }
-      }
-  
-    return{
-        onClose,
-        onToggleButton,
-        tg,
-        user: tg.initDataUnsafe?.user,
-
+    } else {
+      console.error("MainButton is not available");
     }
+  };
+
+  return {
+    onClose,
+    onToggleButton,
+    tg,
+    user: tg.initDataUnsafe?.user || null, // Added a default value
+  };
 }
