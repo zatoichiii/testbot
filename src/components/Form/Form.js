@@ -15,20 +15,20 @@ const Form = () => {
             subject
         }
         tg.sendData(JSON.stringify(data));
-    }, [country, street, subject])
+    }, [country, street, subject, tg]) // added tg to the dependency array
 
     useEffect(() => {
         tg.onEvent('mainButtonClicked', onSendData)
         return () => {
             tg.offEvent('mainButtonClicked', onSendData)
         }
-    }, [onSendData])
+    }, [onSendData, tg]) // added tg to the dependency array
 
     useEffect(() => {
         tg.MainButton.setParams({
             text: 'Отправить данные'
         })
-    }, [])
+    }, [tg.MainButton]) // added tg.MainButton to the dependency array
 
     useEffect(() => {
         if(!street || !country) {
@@ -36,7 +36,7 @@ const Form = () => {
         } else {
             tg.MainButton.show();
         }
-    }, [country, street])
+    }, [country, street, tg.MainButton]) // added tg.MainButton to the dependency array
 
     const onChangeCountry = (e) => {
         setCountry(e.target.value)
