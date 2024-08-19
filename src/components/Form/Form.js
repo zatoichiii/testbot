@@ -3,51 +3,51 @@ import './Form.css';
 import {useTelegram} from "../../hooks/useTelegram";
 
 const Form = () => {
-    const [country, setCountry] = useState('');
-    const [street, setStreet] = useState('');
-    const [subject, setSubject] = useState('physical');
+    const [userName, setUserName] = useState('');
+    const [userPoints, setUserPoints] = useState('');
+    const [publicationType, setPublicationType] = useState('public');
     const {tg} = useTelegram();
 
     const onSendData = useCallback(() => {
         const data = {
-            country,
-            street,
-            subject
+            userName,
+            userPoints,
+            publicationType
         }
         tg.sendData(JSON.stringify(data));
-    }, [country, street, subject, tg]) // added tg to the dependency array
+    }, [userName, userPoints, publicationType, tg]) 
 
     useEffect(() => {
         tg.onEvent('mainButtonClicked', onSendData)
         return () => {
             tg.offEvent('mainButtonClicked', onSendData)
         }
-    }, [onSendData, tg]) // added tg to the dependency array
+    }, [onSendData, tg]) 
 
     useEffect(() => {
         tg.MainButton.setParams({
-            text: 'Отправить данные'
+            text: 'Отправить спасибо'
         })
-    }, [tg.MainButton]) // added tg.MainButton to the dependency array
+    }, [tg.MainButton]) 
 
     useEffect(() => {
-        if(!street || !country) {
+        if(!userPoints || !userName) {
             tg.MainButton.hide();
         } else {
             tg.MainButton.show();
         }
-    }, [country, street, tg.MainButton]) // added tg.MainButton to the dependency array
+    }, [userName, userPoints, tg.MainButton])
 
-    const onChangeCountry = (e) => {
-        setCountry(e.target.value)
+    const onChangeUserName = (e) => {
+        setUserName(e.target.value)
     }
 
-    const onChangeStreet = (e) => {
-        setStreet(e.target.value)
+    const onChangeUserPoints = (e) => {
+        setUserPoints(e.target.value)
     }
 
-    const onChangeSubject = (e) => {
-        setSubject(e.target.value)
+    const onChangePublicationType = (e) => {
+        setPublicationType(e.target.value)
     }
 
     return (
@@ -57,19 +57,19 @@ const Form = () => {
                 className={'input'}
                 type="text"
                 placeholder={'Имя'}
-                value={country}
-                onChange={onChangeCountry}
+                value={userName}
+                onChange={onChangeUserName}
             />
             <input
                 className={'input'}
                 type="text"
                 placeholder={'Баллы'}
-                value={street}
-                onChange={onChangeStreet}
+                value={userPoints}
+                onChange={onChangeUserPoints}
             />
-            <select value={subject} onChange={onChangeSubject} className={'select'}>
-                <option value={'physical'}>Публично</option>
-                <option value={'legal'}>Анонимно</option>
+            <select value={publicationType} onChange={onChangePublicationType} className={'select'}>
+                <option value={'public'}>Публично</option>
+                <option value={'anonym'}>Анонимно</option>
             </select>
         </div>
     );
