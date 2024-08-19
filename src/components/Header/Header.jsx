@@ -1,9 +1,10 @@
 import React from "react";
 import Button from "../Button/Button";
 import { useTelegram } from "../../hooks/useTelegram";
+import './Header.css';
 
 const Header = (props) => {
-  const { user, onClose } = useTelegram(); // Added parentheses
+  const { user, onClose } = useTelegram(); 
 
   return (
     <div className={'header'}>
