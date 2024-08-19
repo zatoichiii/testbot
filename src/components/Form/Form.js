@@ -17,7 +17,12 @@ const Form = () => {
       message,
       subject
     }
-    tg.onSendData(JSON.stringify(data));
+    try {
+      tg.onSendData(JSON.stringify(data));
+      console.log('Data sent successfully!');
+    } catch (error) {
+      console.error('Error sending data:', error);
+    }
   }, [name, points, message, subject, tg]);
 
   useEffect(() => {
