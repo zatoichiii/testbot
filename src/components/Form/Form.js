@@ -10,26 +10,36 @@ const Form = () => {
   const { tg } = useTelegram();
 
   const onSendData = useCallback(() => {
-    const data = {
-      userName,
-      userPoints,
-      userMessage,
-      publicationType
-    };
-    tg.sendData(JSON.stringify(data));
+    if (tg) {
+      const data = {
+        userName,
+        userPoints,
+        userMessage,
+        publicationType
+      };
+      tg.sendData(JSON.stringify(data));
+    }
   }, [userName, userPoints, userMessage, publicationType, tg]);
 
   useEffect(() => {
-    tg.MainButton.hide();
-  }, [tg.MainButton]);
+    if (tg) {
+      tg.MainButton.hide();
+    }
+  }, [tg && tg.MainButton]);
 
   useEffect(() => {
-    if (!userPoints || !userName) {
-      tg.MainButton.hide();
-    } else {
-      tg.MainButton.show();
+    if (tg) {
+      if (!userPoints || !userName) {
+        tg.MainButton.hide();
+      } else {
+        tg.MainButton.show();
+      }
     }
-  }, [userName, userPoints, tg.MainButton]);
+  }, [userName, userPoints, tg && tg.MainButton]);
+
+  if (!tg) {
+    return <div>Telegram Web App is not initialized</div>;
+  }
 
   const onChangeUserName = (e) => {
     setUserName(e.target.value);
