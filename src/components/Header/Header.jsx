@@ -1,5 +1,4 @@
 import React from "react";
-import Button from "../Button/Button";
 import { useTelegram } from "../../hooks/useTelegram";
 import './Header.css';
 
@@ -8,7 +7,7 @@ const Header = (props) => {
 
   return (
     <div className={'header'}>
-      <Button onClick={onClose}>Закрыть</Button>
+      <img src={user?.profile_photo_url} alt="User Avatar" className={'avatar'} />
       <span className={'username'}>
         {user?.username || 'Unknown User'} 
       </span>

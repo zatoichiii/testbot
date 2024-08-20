@@ -6,6 +6,9 @@
     padding: 0 20px;
 }
 
-.username {
-    margin-left: auto;
-}
+.avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
