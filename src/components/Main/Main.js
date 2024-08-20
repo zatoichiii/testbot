@@ -6,7 +6,7 @@ const Main = () => {
   
     return (
       <div>
-        Main
+        Главная <br></br>
         <Link to="/form">
           <button>Перейти к форме</button>
         </Link>
