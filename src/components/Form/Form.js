@@ -20,11 +20,12 @@ const Form = () => {
   }, [userName, userPoints, userMessage, publicationType, tg]);
 
   useEffect(() => {
-    tg.onEvent('mainButtonClicked', onSendData);
+    tg.onEvent('open', onSendData);
     return () => {
-      tg.offEvent('mainButtonClicked', onSendData);
+      tg.offEvent('open', onSendData);
     };
   }, [onSendData, tg]);
+
 
   useEffect(() => {
     tg.MainButton.hide();
