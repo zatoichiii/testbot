@@ -20,10 +20,7 @@ const Form = () => {
   }, [userName, userPoints, userMessage, publicationType, tg]);
 
   useEffect(() => {
-    tg.onEvent('open', onSendData);
-    return () => {
-      tg.offEvent('open', onSendData);
-    };
+    tg.ready(onSendData);
   }, [onSendData, tg]);
 
 
