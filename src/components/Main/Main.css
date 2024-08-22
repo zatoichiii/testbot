@@ -1,0 +1,89 @@
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  
+  .left-column {
+    grid-column: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .right-column {
+    grid-column: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .button {
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    transition: 0.2s;
+
+  }
+  
+ 
+  
+  .button-text {
+    text-align: center;
+    padding: 10px;
+  }
+  
+  .big-button {
+    color: white;
+    background: rgb(235, 160, 21);
+    height: 150px;
+    font-size: 24px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    border-radius: 20px;
+    transition: 0.2s;
+  }
+  
+  .full-width-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    font-size: 18px;
+    background-color: rgb(0, 0, 255);
+    color: white;
+    text-align: center;
+    padding: 10px;
+    border-radius: 20px;
+    margin-top: 20px;
+    transition: 0.2s;
+  }
+
+  .button:hover {
+    background-color: #3e8e41;
+  }
+
+  .big-button:hover{
+    background: rgb(209, 143, 19);
+  }
+
+  .full-width-button:hover{
+    background-color: rgb(18, 18, 207);
+  }
